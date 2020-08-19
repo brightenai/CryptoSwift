@@ -1,4 +1,4 @@
-// swift-tools-version:5.0
+// swift-tools-version:5.3
 
 import PackageDescription
 
@@ -15,7 +15,11 @@ let package = Package(
     )
   ],
   targets: [
-    .target(name: "CryptoSwift"),
+    .target(name: "CryptoSwift",
+            linkerSettings: [
+                            .unsafeFlags([ "-Xlinker","-soname=libCryptoSwift.so"],.when(platforms: [.android])),
+                             ]
+),
     .testTarget(name: "CryptoSwiftTests", dependencies: ["CryptoSwift"]),
     .testTarget(name: "TestsPerformance", dependencies: ["CryptoSwift"])
   ],
